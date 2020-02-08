@@ -1,26 +1,26 @@
 package de.rares.protocol.client;
 
-import java.io.DataOutput;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
-public class ClienCM {
+public class ClienCM extends Thread {
     Socket server;
 
     DataOutput os;
+    DataInputStream is;
     public ClienCM(String host, int port) throws IOException {
         server = new Socket(host, port);
-      OutputStream out;
-      os = new DataOutputStream( server.getOutputStream());
-triggerHandshake();
+
+        os = new DataOutputStream(server.getOutputStream());
+        is = new DataInputStream(server.getInputStream());
+        start();
+        triggerHandshake();
     }
 
     public void send(String msg) throws IOException {
-       os.writeUTF(msg + "\n");
+        os.writeUTF(msg + "\n");
     }
 
 
@@ -37,4 +37,18 @@ triggerHandshake();
         return "abc";
     }
 
+
+    @Override
+    public void run() {
+        while (true){
+            try {
+                String msg = is.readUTF().trim();
+                if(!msg.equals("")){
+                    System.out.println(msg);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

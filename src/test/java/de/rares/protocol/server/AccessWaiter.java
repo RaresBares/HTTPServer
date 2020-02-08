@@ -33,14 +33,19 @@ public class AccessWaiter extends Thread {
                             System.out.println(msg.trim());
                             hs.add(msg.trim());
 
+
                         }
                     }
-                  
+
 
 
                     hsv = verif(hs);
                 } else {
                     new DataOutputStream(t.getOutputStream()).writeUTF("ERROR 403 | please trigger the Handshake!");
+                    dataInputStream.readUTF();
+                    dataInputStream.readUTF();
+                    dataInputStream.readUTF();
+
 
                 }
                 if (true) {
