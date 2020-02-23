@@ -20,5 +20,20 @@
         </plugins>
     </build>
 
+    <repositories>
+        <repository>
+            <id>InfoService</id>
+            <url>https://github.com/RaresBares/InfoService/mvn-repo</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+<dependencies>  <dependency>
+    <groupId>InfoService</groupId>
+    <artifactId>InfoService</artifactId>
+    <version>LATEST</version>
+</dependency></dependencies>
 
 </project>

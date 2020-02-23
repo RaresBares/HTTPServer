@@ -19,17 +19,15 @@ public class MessageWaiter extends Thread{
             if(t.isConnected()){
 
                 DataInputStream dataInputStream = new DataInputStream(t.getInputStream());
+                Scanner sc = new Scanner(dataInputStream);
              while (state){
                  String msg = "";
 
-                 if((msg = dataInputStream.readUTF()).trim() == ""){
 
-
-
-
-                 }else{
+                 if(sc.hasNextLine()) {
+                     msg = sc.nextLine();
                      System.out.println("Geschrieben " + msg);
-                    ConnectionManager.wakeUpAll(msg);
+                     ConnectionManager.wakeUpAll(msg);
                  }
 
              }
